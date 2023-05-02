@@ -1,26 +1,20 @@
 package main
 
 import (
-  "github.com/gin-gonic/gin"
-  "go-crud/initializers"
-  "go-crud/controllers"
+	"github.com/gin-gonic/gin"
+	"go-crud/initializers"
+	"go-crud/routes"
 )
 
 func init() {
-  initializers.LoadEnvVariables()
-  initializers.ConnectToDb()
+	initializers.LoadEnvVariables()
+	initializers.ConnectToDb()
 }
 
 func main() {
 	r := gin.Default()
 
-  r.GET("/posts", controllers.GetPosts)
-  r.GET("/posts/:id", controllers.GetPostById)
+  routes.PostRoutes(r)
 
-  r.PUT("/posts/:id", controllers.UpdatePost)
-  r.POST("/posts", controllers.PostsCreate)
-
-  r.DELETE("/posts/:id", controllers.DeletePost)
-
-  r.Run()
+	r.Run()
 }
